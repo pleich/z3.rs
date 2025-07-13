@@ -181,7 +181,12 @@ mod gh_release {
             panic!("Could not find release for z3-{}", z3_version);
         };
 
-        assert_eq!(response.status(), 200);
+        assert_eq!(
+            response.status(),
+            200,
+            "Failed to fetch release info for z3-{z3_version}: Status code {}",
+            response.status()
+        );
 
         let release_json: serde_json::Value =
             serde_json::from_str(&response.text().unwrap()).unwrap();
